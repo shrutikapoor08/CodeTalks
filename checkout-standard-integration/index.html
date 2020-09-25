@@ -11,42 +11,16 @@
           href="src/styles.css"
           rel="stylesheet"
         />
-              <script src="src/index.js"></script>
-
   </head>
-
   <body>
     <div id="app">
       <h1>Buy a plant</h1>
       <img
         class="item"
-        src="https://images.unsplash.com/photo-1510505751526-76254482fd38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9"
-        alt="swiss cheese plant"
+        src="https://images.unsplash.com/photo-1510505751526-76254482fd38"
+        alt="Swiss Cheese plant"
       />
-      <script
-        src="https://www.paypal.com/sdk/js?client-id=AeehW6ha7jCRCUt8Ubll1nJ0-Rf2GhtySy4BacgVWtb0-gRkm4v5Rjf4xXSphzWVpbKsnpyJdt96DYtk"
-      >
-        // Required. Replace SB_CLIENT_ID with your sandbox client ID.
-      </script>
-      <div id="paypal-button-container"></div>
-      <script>
-        paypal
-          .Buttons({
-            createOrder: function (data, actions) {
-              // This function sets up the details of the transaction, including the amount and line item details.
-              return actions.order.create({
-                purchase_units: [
-                  {
-                    amount: {
-                      value: "20.00"
-                    }
-                  }
-                ]
-              });
-            }
-          })
-          .render("#paypal-button-container");
-      </script>
     </div>
+    <script src="src/index.js"></script>
   </body>
 </html>
