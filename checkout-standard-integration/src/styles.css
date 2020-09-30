@@ -16,9 +16,6 @@ h1 {
   font-weight: bold;
 }
 
-#paypal-button-container{
-  margin: 30px 0;
-}
 .item {
   height: 500px;
 }
@@ -28,4 +25,8 @@ h1 {
 
 .caption {
   font-size: 11px;
+}
+
+#paypal-button-container{
+  margin: 30px 0;
 }
