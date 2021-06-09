@@ -23,7 +23,63 @@
          <span class="caption">Photo by <a href="https://unsplash.com/@mensroom?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Mike Marquez</a> on <a href="https://unsplash.com/s/photos/cheese-plant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
          <div id="paypal-button-container"></div>
       </div>
-      <script src="https://www.paypal.com/sdk/js?client-id=AWx1gpCaWDcvW0Tfxwf6gqMuvRkxVyhYPKJIEB6KVO3AdxxZJVnNaFxbQkemez5VwrqpkcMbRN8ZGJ-j"></script>
-      <script src="src/index.js"></script>
+
+
+<!--      <script src="https://www.te-alm-35813272108455175411576.qa.paypal.com/sdk/js?client-id=alc_client1&commit=true" data-user-experience-flow="HONEY_MODAL"></script>-->
+      <script src="https://www.paypalobjects.com/api/checkout.js" data-env="local"></script>
+      <script>
+         paypal.Button.render({
+            // Configure environment
+            env: 'local',
+            client: {
+               local: 'alc_client1',
+               sandbox: 'AcRp4sZHaryGKmRggeGgmbTZOtj4S-a2Q-mv-fMuXIobjBazBI24MNmgORsZsfLegM5OK_brdTHsJXDV',
+               production: 'demo_production_client_id'
+            },
+            // Customize button (optional)
+            locale: 'en_US',
+            style: {
+               size: 'small',
+               color: 'gold',
+               shape: 'pill',
+            },
+
+            // Enable Pay Now checkout flow (optional)
+            commit: false,
+
+            // Set up a payment
+            payment: function(data, actions) {
+               /* Set up a url on your server to create the payment */
+               var CREATE_URL = 'http://localhost:3000/my-api/create-payment';
+
+               /* Make a call to your server to set up the payment */
+               return paypal.request.post(CREATE_URL)
+                       .then(function( data ) {
+                          console.log(data);
+                          return data.id;
+                       });
+            },
+            // Execute the payment
+            onAuthorize: function(data, actions) {
+               /* Set up a url on your server to execute the payment */
+               var EXECUTE_URL = 'http://localhost:3000/my-api/execute-payment';
+
+               /* Set up the data you need to pass to your server */
+               var data = {
+                  paymentID: data.paymentID,
+                  payerID: data.payerID
+               };
+
+               /* Make a call to your server to execute the payment */
+               return paypal.request.post(EXECUTE_URL, data)
+                       .then(function (res) {
+                          window.alert('Payment Complete!');
+                       });
+            }
+
+         }, '#paypal-button-container');
+
+      </script>
+<!--      <script src="src/index.js"></script>-->
    </body>
 </html>
